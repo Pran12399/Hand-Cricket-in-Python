@@ -16,20 +16,19 @@ def toss():
         bat_sel=int(input())
         score1=0
         score2=0
-        ref=0
         if(bat_sel==1):
-            score1 = batting(score1,ref,score2)
+            score1 = batting(score1,score2)
             print("Your Score is",score1,"Computer needs to score",score1+1,"to win")
-            score2 = bowling(score2,ref,score1)
+            score2 = bowling(score2,score1)
             if(score1>score2):
                 print("You Win")
             else:
                 print("You Lost")
             
         else:
-             score1=bowling(score1,ref,score2)
+             score1=bowling(score1)
              print("Computer Score is",score1,"You need to score",score1+1,"to win")
-             score2=batting(score2,ref,score1)
+             score2=batting(score2)
              if(score2>score1):
                  print("You Win")
              else:
@@ -38,21 +37,20 @@ def toss():
     else:
         score1=0
         score2=0
-        ref=0
         comp_sel = random.randint(0,1)
         print("Computer Won the toss and choose to {}".format(selection[comp_sel]))
         if comp_sel==0:
-             score1=bowling(score1,ref,score2)
+             score1=bowling(score1,score2)
              print("Computer Score is",score1,"You need to score",score1+1,"to win")
-             score2=batting(score2,ref,score1)
+             score2=batting(score2,score1)
              if(score2>score1):
                  print("You Win")
              else:
                  print("You Lost! Better Luck Next Time!")
         else:
-            score1 = batting(score1,ref,score2)
+            score1 = batting(score1,score2)
             print("Your Score is",score1,"Computer needs to score",score1+1,"to win")
-            score2 = bowling(score2,ref,score1)
+            score2 = bowling(score2,score1)
             if(score1>score2):
                 print("You Win".center('*',50))
             else:
@@ -60,8 +58,7 @@ def toss():
         
         
 
-def bowling(score,ref,dec):
-    print(dec)
+def bowling(score,ref):
     print('-'*80)
     print("Now You Are Bowling: \n Your Score is ",score)
     score = 0
@@ -73,28 +70,18 @@ def bowling(score,ref,dec):
         if bowl==comp_bowl:
             print("You and computer entered a same number.Computer lost its turn")
             print("Score is :",score)
-            ref+=1
             return score
         else:
             
             score+=comp_bowl
-            if(ref!=0 and score>dec):
+            if(ref>0 and score>ref):
                 print("Computer number is {}\t\tcomputer score is [{}]".format(comp_bowl,score))
                 print("You LOST".center(75,'*'))
                 
                 return score
             print("Computer number is {}\t\tcomputer score is [{}]".format(comp_bowl,score))
-             
-          
-            
-            
-    
 
-
-
-    
-def batting(score,ref,dec):
-    print(dec)
+def batting(score,ref):
     print('-'*80)
     print("Now You Are Batting: \n Your Score is ",score)
     score = 0
@@ -106,16 +93,16 @@ def batting(score,ref,dec):
         if(num==num2):
             print("Both You and computer Entered A same Number:")
             print("You Are Out,Your score is {}".center(55,' ').format(score))
-            ref+=1
             return score
-        
         else:
             score+=num
-            if(ref>0 and score>dec):
+            if(ref>0 and score>ref):
                 print("You Win".center(75,'*'))
+                print("score is {}".center(75,' ').format(score))
+                break
             print("score is {}".center(75,' ').format(score))
- 
-              
+
+    return score       
             
    
 toss()       
